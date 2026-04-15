@@ -10,22 +10,17 @@ from .rag_service import get_rag_response
 @require_http_methods(["POST"])
 def chat_query(request):
     try:
-        # ✅ Parse JSON safely
         data = json.loads(request.body)
         message = data.get('message', '').strip()
 
         if not message:
-            return JsonResponse({
-                "status": "error",
-                "message": "Message is required"
-            }, status=400)
+            return JsonResponse({'error': 'Message is required'}, status=400)
 
-        # ✅ Call AI service
-        response = get_rag_response(message)
-
-        # ✅ Ensure response is always string
-        if not isinstance(response, str):
-            response = str(response)
+        try:
+            response = get_rag_response(message)
+        except Exception as ai_error:
+            print("AI ERROR:", str(ai_error))
+            response = "⚠️ AI failed but server is working"
 
         return JsonResponse({
             "status": "success",
@@ -33,17 +28,9 @@ def chat_query(request):
             "response": response
         })
 
-    except json.JSONDecodeError:
-        return JsonResponse({
-            "status": "error",
-            "message": "Invalid JSON format"
-        }, status=400)
-
     except Exception as e:
-        print("❌ Chat API Error:", str(e))
-
+        print("FULL ERROR:", str(e))
         return JsonResponse({
             "status": "error",
-            "message": "Something went wrong",
-            "details": str(e)
+            "message": str(e)
         }, status=500)
