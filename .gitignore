@@ -1,0 +1,25 @@
+# Node
+node_modules/
+.next/
+dist/
+build/
+*.log
+.env
+.env.local
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+db.sqlite3
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

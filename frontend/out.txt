@@ -1,0 +1,22 @@
+
+> rentora-frontend@0.1.0 dev
+> next dev
+
+ ΓÜá Port 3000 is in use, trying 3001 instead.
+   Γû▓ Next.js 14.0.4
+   - Local:        http://localhost:3001
+
+ Γ£ô Ready in 2.8s
+ Γùï Compiling / ...
+ Γ£ô Compiled / in 4s (1132 modules)
+ Γ£ô Compiled in 703ms (571 modules)
+ Γ£ô Compiled in 1490ms (571 modules)
+ Γ£ô Compiled in 544ms (571 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\kiran\OneDrive\Desktop\Smart Rental\frontend\.next\cache\webpack\client-development\20.pack.gz_' -> 'C:\Users\kiran\OneDrive\Desktop\Smart Rental\frontend\.next\cache\webpack\client-development\20.pack.gz'
+ Γ£ô Compiled in 578ms (571 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\kiran\OneDrive\Desktop\Smart Rental\frontend\.next\cache\webpack\client-development\9.pack.gz_' -> 'C:\Users\kiran\OneDrive\Desktop\Smart Rental\frontend\.next\cache\webpack\client-development\9.pack.gz'
+ Γ£ô Compiled in 495ms (571 modules)
+ Γ£ô Compiled in 275ms (571 modules)
+ Γ£ô Compiled in 384ms (571 modules)
+ Γ£ô Compiled in 217ms (571 modules)
+<w> [webpack.cache.PackFileCacheStrategy] Caching failed for pack: Error: EPERM: operation not permitted, rename 'C:\Users\kiran\OneDrive\Desktop\Smart Rental\frontend\.next\cache\webpack\client-development\9.pack.gz_' -> 'C:\Users\kiran\OneDrive\Desktop\Smart Rental\frontend\.next\cache\webpack\client-development\9.pack.gz'

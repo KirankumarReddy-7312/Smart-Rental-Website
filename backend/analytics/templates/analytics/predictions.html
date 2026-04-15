@@ -1,0 +1,212 @@
+{% extends 'analytics/analytics_base.html' %}
+
+{% block content %}
+<div class="card" style="border: none; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+    <div style="padding: 1.5rem 2rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 1rem;">
+        <div style="background: #f8fafc; padding: 0.8rem; border-radius: 12px; color: #1e293b;">
+            <i class="fas fa-pen-nib"></i>
+        </div>
+        <h2 style="font-family: 'Outfit'; font-weight: 700; color: #1e293b; font-size: 1.5rem;">ML Parameters</h2>
+    </div>
+
+    <form id="predict-form" style="padding: 2.5rem;">
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+            <!-- Row 1 -->
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Locality *</label>
+                <select name="locality" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+                    <option>Whitefield</option>
+                    <option>Bellandur</option>
+                    <option>Electronic_City</option>
+                    <option>Yelahanka</option>
+                    <option>Mahadevapura</option>
+                    <option>Brookefield</option>
+                    <option>Varthur</option>
+                </select>
+            </div>
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Property Type *</label>
+                <select name="type" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+                    <option>BHK2</option>
+                    <option>BHK3</option>
+                    <option>BHK1</option>
+                    <option>BHK4</option>
+                </select>
+            </div>
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Size (sqft) *</label>
+                <input type="number" name="property_size" value="1000" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+            </div>
+
+            <!-- Row 2 -->
+             <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Bathrooms *</label>
+                <input type="number" name="bathroom" value="2" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+            </div>
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Floor *</label>
+                <input type="number" name="floor" value="2" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+            </div>
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Total Floors</label>
+                <input type="number" name="total_floor" value="5" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+            </div>
+
+            <!-- Row 3 -->
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Furnishing *</label>
+                <select name="furnishing" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+                    <option>SEMI_FURNISHED</option>
+                    <option>FULLY_FURNISHED</option>
+                    <option>NOT_FURNISHED</option>
+                </select>
+            </div>
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Tenant Config *</label>
+                <select name="lease_type" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+                    <option>ANYONE</option>
+                    <option>FAMILY</option>
+                    <option>BACHELOR</option>
+                    <option>COMPANY</option>
+                </select>
+            </div>
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Parking</label>
+                <select name="parking" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+                    <option>BOTH</option>
+                    <option>TWO_WHEELER</option>
+                    <option>FOUR_WHEELER</option>
+                    <option>NONE</option>
+                </select>
+            </div>
+
+             <!-- Row 4 -->
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Building Type</label>
+                <select name="building_type" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+                    <option>AP</option>
+                    <option>IH</option>
+                    <option>IF</option>
+                </select>
+            </div>
+            <div>
+                <label style="display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.7rem; color: #475569;">Property Age (Yrs)</label>
+                <input type="number" name="property_age" value="2" style="width: 100%; border: 1px solid #e2e8f0; padding: 0.8rem; border-radius: 8px; background: #fff; color: #1e293b; font-weight: 500;">
+            </div>
+        </div>
+
+        <div style="background: #f8fafc; border-radius: 12px; margin-top: 2.5rem; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; gap: 3rem;">
+                <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; color: #475569; font-weight: 600;">
+                    <input type="checkbox" name="gym" style="width: 18px; height: 18px;"> Gym Available
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; color: #475569; font-weight: 600;">
+                    <input type="checkbox" name="swimming_pool" style="width: 18px; height: 18px;"> Swimming Pool
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.8rem; cursor: pointer; color: #475569; font-weight: 600;">
+                    <input type="checkbox" name="lift" style="width: 18px; height: 18px;"> Lift Access
+                </label>
+            </div>
+        </div>
+
+        <div style="margin-top: 3rem; display: flex; justify-content: center;">
+             <button type="submit" style="background: #1e293b; color: white; padding: 1.2rem 4rem; border-radius: 10px; font-weight: 800; font-size: 1rem; border: none; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: all 0.3s;">
+                GENERATE RENT PREDICTION <i class="fas fa-bolt" style="margin-left: 0.5rem; color: #fbbf24;"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<div id="loading" style="display: none; text-align: center; margin-top: 3rem;">
+    <div style="width: 60px; height: 60px; border: 6px solid #f1f5f9; border-top: 6px solid var(--primary); border-radius: 50%; display: inline-block; animation: spin 1s linear infinite;"></div>
+    <p style="margin-top: 1rem; font-weight: 600; color: #64748b;">Processing ML Algorithm...</p>
+</div>
+
+<div id="result-view" style="display: none; margin-top: 3rem;">
+    <div class="card" style="background: #ffffff; text-align: center; padding: 4rem; border-radius: 20px;">
+        <div style="color: #64748b; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 2px;">Estimated Monthly Rent</div>
+        <div id="predicted-value" style="font-size: 5rem; font-weight: 900; color: #1e293b; font-family: 'Outfit'; margin-bottom: 1rem;">₹0</div>
+        <div style="display: flex; justify-content: center; gap: 2rem;">
+            <div style="background: #f0fdf4; color: #16a34a; padding: 0.6rem 1.5rem; border-radius: 30px; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fas fa-check-circle"></i> Precision: <span id="confidence">92%</span>
+            </div>
+            <div style="background: #fef2f2; color: #dc2626; padding: 0.6rem 1.5rem; border-radius: 30px; font-weight: 700; display: flex; align-items: center; gap: 0.5rem; transition: all 0.4s;">
+                 Market Fit: <span id="market-fit-text">Analyzing...</span>
+            </div>
+        </div>
+        <p style="margin-top: 3rem; color: #94a3b8; font-size: 0.9rem;">Model: HistGradientBoosting (Scikit-Learn 1.3+) | Data: 11 Localities Cluster</p>
+    </div>
+</div>
+
+<style>
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    input[type="number"]:focus, select:focus { outline: 2px solid var(--primary); outline-offset: -2px; }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('predict-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        
+        data.property_size = parseInt(data.property_size);
+        data.bathroom = parseInt(data.bathroom);
+        data.floor = parseInt(data.floor);
+        data.total_floor = parseInt(data.total_floor);
+        data.property_age = parseInt(data.property_age);
+        data.gym = data.gym === 'on' ? 1 : 0;
+        data.lift = data.lift === 'on' ? 1 : 0;
+        data.swimming_pool = data.swimming_pool === 'on' ? 1 : 0;
+
+        document.getElementById('result-view').style.display = 'none';
+        document.getElementById('loading').style.display = 'block';
+
+        try {
+            const response = await fetch('/analytics/api/predict/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+            
+            setTimeout(() => {
+                if (result.predicted_rent) {
+                    document.getElementById('predicted-value').innerText = '₹' + result.predicted_rent.toLocaleString();
+                    document.getElementById('confidence').innerText = (result.confidence * 100) + '%';
+                    
+                    const fitText = document.getElementById('market-fit-text');
+                    const fitContainer = fitText.parentElement;
+                    fitText.innerText = result.market_fit;
+                    
+                    // Dynamic styling for market fit
+                    if (result.market_fit === 'High Value Deal') {
+                        fitContainer.style.background = '#f0f9ff';
+                        fitContainer.style.color = '#0369a1';
+                    } else if (result.market_fit === 'Market Average') {
+                        fitContainer.style.background = '#f0fdf4';
+                        fitContainer.style.color = '#16a34a';
+                    } else {
+                        fitContainer.style.background = '#fffbeb';
+                        fitContainer.style.color = '#d97706';
+                    }
+
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('result-view').style.display = 'block';
+                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                } else {
+                    alert('Prediction failed: ' + result.error);
+                    document.getElementById('loading').style.display = 'none';
+                }
+            }, 800);
+        } catch (error) {
+            console.error(error);
+            document.getElementById('loading').style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

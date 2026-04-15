@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Fix form input colors */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
+  color: #374151 !important;
+  background-color: #ffffff !important;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="number"]::placeholder,
+textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Fix for autofill styles */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+  -webkit-text-fill-color: #374151 !important;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Glassmorphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animation classes */
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
+}
+
+/* Smooth transitions - Applied to specific elements instead of wildcard */
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+/* Button hover effects */
+.btn-primary {
+  @apply bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl;
+}
+
+.btn-secondary {
+  @apply bg-secondary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-secondary-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl;
+}
+
+/* Card hover effects */
+.card-hover {
+  @apply transform hover:scale-105 transition-all duration-300 hover:shadow-2xl cursor-pointer;
+}
+
+/* Loading skeleton */
+.skeleton {
+  @apply bg-gray-200 rounded animate-pulse;
+}
+
+.skeleton-text {
+  @apply h-4 bg-gray-200 rounded animate-pulse mb-2;
+}
+
+.skeleton-card {
+  @apply bg-white rounded-lg shadow-lg p-4 animate-pulse;
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero section background */
+.hero-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
+}

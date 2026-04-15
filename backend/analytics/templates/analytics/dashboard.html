@@ -1,0 +1,75 @@
+{% extends 'analytics/analytics_base.html' %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 3rem;">
+    <div style="display: inline-block; padding: 0.4rem 1.2rem; background: #eef2f6; border-radius: 20px; color: #64748b; font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 1rem; text-transform: uppercase;">Real Estate Intelligence</div>
+    <h1 style="font-size: 3rem; font-weight: 800; margin-bottom: 1rem; color: #1e293b;">The Premium Choice for <span style="color: var(--primary);">Real Estate Analytics</span></h1>
+    <p style="color: #64748b; font-size: 1.1rem; max-width: 700px; margin: 0 auto;">Filter and find real-time market trends based on unique property data across Bangalore.</p>
+</div>
+
+<div class="metrics-grid">
+    <div class="metric-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div style="width: 45px; height: 45px; background: #f0fdf4; color: #16a34a; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;"><i class="fas fa-home"></i></div>
+            <div style="font-size: 0.7rem; font-weight: 800; color: #16a34a; background: #f0fdf4; padding: 2px 8px; border-radius: 5px;">ACTIVE</div>
+        </div>
+        <div class="metric-label">Market Inventory</div>
+        <div class="metric-value" style="font-family: 'Outfit';">{{ market_summary.total_properties }} <span style="font-size: 0.9rem; font-weight: 400; color: #64748b;">Units</span></div>
+    </div>
+    <div class="metric-card" style="border-top-color: #f59e0b;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div style="width: 45px; height: 45px; background: #fffbeb; color: #d97706; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;"><i class="fas fa-hand-holding-usd"></i></div>
+            <div style="font-size: 0.7rem; font-weight: 800; color: #d97706; background: #fffbeb; padding: 2px 8px; border-radius: 5px;">TRENDING</div>
+        </div>
+        <div class="metric-label">Average Market Rent</div>
+        <div class="metric-value" style="font-family: 'Outfit';">₹{{ market_summary.avg_rent }}<span style="font-size: 0.9rem; font-weight: 400; color: #64748b;">/mo</span></div>
+    </div>
+    <div class="metric-card" style="border-top-color: var(--accent);">
+         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div style="width: 45px; height: 45px; background: #ecfeff; color: #0891b2; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;"><i class="fas fa-shield-alt"></i></div>
+            <div style="font-size: 0.7rem; font-weight: 800; color: #0891b2; background: #ecfeff; padding: 2px 8px; border-radius: 5px;">SECURE</div>
+        </div>
+        <div class="metric-label">Avg Security Deposit</div>
+        <div class="metric-value" style="font-family: 'Outfit';">₹{{ market_summary.avg_deposit }}</div>
+    </div>
+    <div class="metric-card" style="border-top-color: #6366f1;">
+         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+            <div style="width: 45px; height: 45px; background: #eef2ff; color: #4f46e5; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem;"><i class="fas fa-expand-arrows-alt"></i></div>
+            <div style="font-size: 0.7rem; font-weight: 800; color: #4f46e5; background: #eef2ff; padding: 2px 8px; border-radius: 5px;">OPTIMAL</div>
+        </div>
+        <div class="metric-label">Avg. Property Size</div>
+        <div class="metric-value" style="font-family: 'Outfit';">{{ market_summary.avg_size }} <span style="font-size: 0.8rem;">SQFT</span></div>
+    </div>
+</div>
+
+<div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <div class="card">
+        <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-chart-bar" style="color: var(--primary);"></i> Locality Performance Index</h3>
+        <div id="locality-chart" style="height: 400px;">
+            {{ locality_charts|safe }}
+        </div>
+    </div>
+
+    <div class="card">
+        <h3 style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><i class="fas fa-chart-pie" style="color: #f59e0b;"></i> Regional Distribution</h3>
+        <div id="supply-chart" style="height: 400px;">
+            {{ supply_chart|safe }}
+        </div>
+    </div>
+</div>
+
+<div style="margin-top: 1rem;">
+    <div class="card" style="border: none; background: #1e293b; color: white;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Ready to find your ROI-optimized property?</h2>
+                <p style="color: #94a3b8;">Our Predictive engine uses advanced Random Forest algorithms for 0.66 R² accuracy.</p>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button onclick="location.href='{% url \'predictive_analytics\' %}';" style="background: white; color: #1e293b;">Explore Predictor</button>
+                <button onclick="location.href='{% url \'investment_analyzer\' %}';" style="background: var(--primary); color: white;">Publish Reports</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'analytics/analytics_base.html' %}
+
+{% block content %}
+<header class="card">
+    <h1>Market Insights & ROI</h1>
+    <p style="color: var(--text-dim);">Automated analysis of the Bangalore real estate market dynamics.</p>
+</header>
+
+<div class="dashboard-grid">
+    <div class="left">
+        <div class="card">
+            <h3>Investment Opportunity Scoring</h3>
+            <p style="margin-top: 1rem; color: var(--text-dim);">High Potential Localities for 2026:</p>
+            <div style="margin-top: 1.5rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Whitefield (IT Hub)</span>
+                    <span style="color: #22c55e;">9.5/10</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 1.5rem;">
+                    <div style="width: 95%; background: var(--accent); height: 100%;"></div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span>Bellandur (Central Eco-System)</span>
+                    <span style="color: #22c55e;">8.8/10</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 1.5rem;">
+                    <div style="width: 88%; background: var(--primary); height: 100%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="card">
+            <h3>ROI Calculator Suggestions</h3>
+            <ul style="list-style: none; margin-top: 1rem;">
+                {% for key, val in roi.items %}
+                <li style="margin-bottom: 1rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 0.5rem;">
+                    <div style="font-weight: 600; text-transform: capitalize;">{{ key }}</div>
+                    <div style="color: #22c55e;">Expected {{ val }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
