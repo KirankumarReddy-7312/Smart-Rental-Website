@@ -11,14 +11,14 @@ def get_rag_response(query):
         response = requests.post(
             HF_API_URL,
             json=payload,
-            timeout=15   # 🔥 IMPORTANT (prevents hanging)
+            timeout=20
         )
 
         if response.status_code == 200:
             result = response.json()
             return result["data"][0]
-        else:
-            return f"⚠️ HF Error: {response.status_code}"
+
+        return f"⚠️ HuggingFace Error: {response.status_code}"
 
     except requests.exceptions.Timeout:
         return "⚠️ AI is waking up, try again in few seconds"
