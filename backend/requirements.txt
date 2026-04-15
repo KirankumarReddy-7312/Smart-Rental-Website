@@ -9,3 +9,4 @@ whitenoise==6.6.0
 python-dotenv
 requests==2.31.0
 django-filter
+dj-database-url
