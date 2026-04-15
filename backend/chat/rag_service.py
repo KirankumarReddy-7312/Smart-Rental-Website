@@ -1,24 +1,39 @@
 import requests
-
-HF_API_URL = "https://kirankumarreddy7312-rentora-ai.hf.space/run/predict"
-
+HF_BASE_URL = "https://kirankumarreddy7312-rentora-ai.hf.space"
 def get_rag_response(query):
     try:
         payload = {
             "data": [query]
         }
 
-        response = requests.post(
-            HF_API_URL,
-            json=payload,
-            timeout=20
-        )
+        
+        endpoints = [
+            f"{HF_BASE_URL}/predict",
+            f"{HF_BASE_URL}/api/predict",
+            f"{HF_BASE_URL}/run/predict"
+        ]
 
-        if response.status_code == 200:
-            result = response.json()
-            return result["data"][0]
+        for url in endpoints:
+            try:
+                response = requests.post(
+                    url,
+                    json=payload,
+                    timeout=15
+                )
 
-        return f"⚠️ HuggingFace Error: {response.status_code}"
+                if response.status_code == 200:
+                    result = response.json()
+
+                  
+                    if "data" in result and len(result["data"]) > 0:
+                        return result["data"][0]
+
+                    return str(result)
+
+            except Exception as e:
+                print(f"Trying next endpoint... Error: {e}")
+
+        return "⚠️ AI endpoint not found"
 
     except requests.exceptions.Timeout:
         return "⚠️ AI is waking up, try again in few seconds"
