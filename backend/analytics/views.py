@@ -7,6 +7,9 @@ from django.http import JsonResponse
 from pathlib import Path
 from .models import AnalyticsProperty, MLModelVersion
 import random
+from .ai_service import call_huggingface_ai
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 @login_required
 def analytics_dashboard(request):
@@ -291,4 +294,33 @@ def add_property_api(request):
             return JsonResponse({'message': 'Property saved successfully', 'id': analytics_prop.id}, status=201)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
+    return JsonResponse({'error': 'POST required'}, status=405)
+@csrf_exempt
+def ai_search_api(request):
+    """
+    API endpoint for Smart AI Search integration with Hugging Face Space.
+    Accepts POST with {'query': '...'}
+    """
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            query = data.get('query', '').strip()
+            
+            # Security: Prevent empty queries
+            if not query:
+                return JsonResponse({'error': 'Query cannot be empty'}, status=400)
+            
+            # Call Hugging Face service
+            result = call_huggingface_ai(query)
+            
+            if "error" in result:
+                return JsonResponse(result, status=503)
+                
+            return JsonResponse(result)
+            
+        except json.JSONDecodeError:
+            return JsonResponse({'error': 'Invalid JSON'}, status=400)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+            
     return JsonResponse({'error': 'POST required'}, status=405)

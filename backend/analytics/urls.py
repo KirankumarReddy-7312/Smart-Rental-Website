@@ -12,4 +12,5 @@ urlpatterns = [
     path('50-insights/', views.market_insights_api, name='market_insights_api'),
     path('ml-predictions/', views.ml_predictions_api, name='ml_predictions_api'),
     path('add-property/', views.add_property_api, name='add_property_api'),
+    path('ai-search/', views.ai_search_api, name='ai_search_api'),
 ]

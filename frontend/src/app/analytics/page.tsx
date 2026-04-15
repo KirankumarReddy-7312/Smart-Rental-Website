@@ -18,7 +18,9 @@ import {
   AlertCircle,
   Building2,
   ChevronRight,
-  Search
+  Search,
+  Sparkles,
+  Loader2
 } from 'lucide-react'
 import Header from '@/components/Layout/Header'
 import Link from 'next/link'
@@ -32,6 +34,12 @@ const AnalyticsPage = () => {
     const [gridSearch, setGridSearch] = useState('')
     const [selectedLocality, setSelectedLocality] = useState<string | null>(null)
     const [error, setError] = useState(false)
+    
+    // AI Search States
+    const [aiQuery, setAiQuery] = useState('')
+    const [aiResult, setAiResult] = useState<any>(null)
+    const [aiLoading, setAiLoading] = useState(false)
+    const [aiError, setAiError] = useState<string | null>(null)
 
     useEffect(() => {
         const location = searchParams.get('location')
@@ -157,6 +165,32 @@ const AnalyticsPage = () => {
         }, 100)
     }
 
+    const handleAiSearch = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!aiQuery.trim()) return
+
+        setAiLoading(true)
+        setAiError(null)
+        setAiResult(null)
+
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/analytics/ai-search/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: aiQuery })
+            })
+            
+            const data = await response.json()
+            if (!response.ok) throw new Error(data.error || 'AI service took too long to respond.')
+            
+            setAiResult(data.response)
+        } catch (err: any) {
+            setAiError(err.message || 'AI service temporarily unavailable')
+        } finally {
+            setAiLoading(false)
+        }
+    }
+
     return (
         <div className="min-h-screen bg-gray-50 text-gray-950 font-sans selection:bg-indigo-600 selection:text-white">
             <Header />
@@ -193,6 +227,7 @@ const AnalyticsPage = () => {
                             { id: 'market', label: 'Market Overview', icon: LayoutDashboard },
                             { id: 'insights', label: 'Market Insights', icon: Zap },
                             { id: 'analysis', label: 'Pricing Analysis', icon: Scale },
+                            { id: 'ai', label: 'Smart AI Search', icon: Sparkles },
                             { id: 'inventory', label: 'Property Inventory', icon: Database }
                         ].map(tab => (
                             <button 
