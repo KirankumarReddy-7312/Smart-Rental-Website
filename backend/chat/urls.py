@@ -1,6 +1,6 @@
 from django.urls import path
-from . import views
+from .views import chat_query
 
 urlpatterns = [
-    path('query/', views.chat_query, name='chat_query'),
+    path('', chat_query),   # IMPORTANT (empty path)
 ]
