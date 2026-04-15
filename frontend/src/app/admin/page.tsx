@@ -18,7 +18,8 @@ import {
   EnvelopeIcon,
   PhoneIcon,
   CalendarDaysIcon,
-  ChartBarIcon
+  ChartBarIcon,
+  TrashIcon
 } from '@heroicons/react/24/outline'
 import toast from 'react-hot-toast'
 
@@ -59,9 +60,19 @@ const AdminPage = () => {
   }, [])
 
   const filteredUsers = realTimeUsers.filter(u => 
-    u.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    u.email.toLowerCase().includes(searchQuery.toLowerCase())
+    u.name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    u.email?.toLowerCase().includes(searchQuery.toLowerCase())
   )
+
+  const deleteUser = (email: string) => {
+    if (confirm(`Are you sure you want to delete user ${email}?`)) {
+      const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]')
+      const updatedUsers = allUsers.filter((u: any) => u.email !== email)
+      localStorage.setItem('allUsers', JSON.stringify(updatedUsers))
+      setRealTimeUsers(updatedUsers)
+      toast.success('User deleted successfully')
+    }
+  }
 
   if (!user) return null
 
@@ -105,6 +116,14 @@ const AdminPage = () => {
                  <span className="text-sm uppercase tracking-widest">{item.name}</span>
                </Link>
              ))}
+             
+             <button
+               onClick={handleLogout}
+               className="w-full flex items-center space-x-3 px-6 py-4 rounded-2xl font-black transition-all text-red-500 hover:bg-red-50 hover:text-red-700"
+             >
+               <ArrowRightOnRectangleIcon className="w-5 h-5" />
+               <span className="text-sm uppercase tracking-widest">Logout</span>
+             </button>
           </nav>
 
           <div className="p-6 border-t border-gray-50">
@@ -118,9 +137,9 @@ const AdminPage = () => {
             <header className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
               <div>
                 <motion.div 
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="text-primary-600 font-black text-xs uppercase tracking-[0.4em] mb-4"
+                   initial={{ opacity: 0, x: -20 }}
+                   animate={{ opacity: 1, x: 0 }}
+                   className="text-primary-600 font-black text-xs uppercase tracking-[0.4em] mb-4"
                 >
                   System Management
                 </motion.div>
@@ -222,8 +241,12 @@ const AdminPage = () => {
                               </div>
                            </td>
                            <td className="px-8 py-6 text-center">
-                              <button className="p-3 bg-gray-50 rounded-xl text-gray-400 hover:bg-primary-600 hover:text-white transition-all shadow-sm">
-                                 <EllipsisVerticalIcon className="w-5 h-5" />
+                              <button 
+                                onClick={() => deleteUser(u.email)}
+                                className="p-3 bg-red-50 rounded-xl text-red-400 hover:bg-red-600 hover:text-white transition-all shadow-sm"
+                                title="Delete User"
+                              >
+                                 <TrashIcon className="w-5 h-5" />
                               </button>
                            </td>
                          </tr>
