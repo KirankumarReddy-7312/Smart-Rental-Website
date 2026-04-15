@@ -7,7 +7,7 @@ import json
 try:
     from rag_service import get_rag_response
 except Exception as e:
-    print("AI import failed:", e)
+    print("❌ AI import failed:", str(e))
     get_rag_response = None
 
 
@@ -21,21 +21,28 @@ def chat_query(request):
         if not message:
             return JsonResponse({'error': 'Message is required'}, status=400)
 
-        # SAFE AI CALL
+        # ✅ SAFE AI CALL
         if get_rag_response:
             try:
                 response = get_rag_response(message)
             except Exception as e:
-                print("AI runtime error:", e)
-                response = "AI temporarily unavailable"
+                print("❌ AI runtime error:", str(e))
+                response = "⚠️ AI temporarily unavailable"
         else:
-            response = "AI service disabled"
+            response = "⚠️ AI service not loaded"
 
-        return JsonResponse({'response': response})
+        return JsonResponse({
+            'status': 'success',
+            'input': message,
+            'response': response
+        })
 
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
 
     except Exception as e:
-        print(f"Chat API Error: {e}")
-        return JsonResponse({'error': f'Server error: {str(e)}'}, status=500)
+        print("❌ Chat API Error:", str(e))
+        return JsonResponse({
+            'error': 'Server error',
+            'details': str(e)
+        }, status=500)
