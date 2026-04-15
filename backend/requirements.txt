@@ -9,3 +9,5 @@ djangorestframework
 django-cors-headers
 numpy
 pandas
+joblib
+scikit-learn   
