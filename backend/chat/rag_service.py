@@ -5,30 +5,24 @@ HF_API_URL = "https://kirankumarreddy7312-rentora-ai.hf.space/run/predict"
 def get_rag_response(query):
     try:
         payload = {
-            "data": [query],
-            "fn_index": 0   # 🔥 VERY IMPORTANT
+            "data": [query]
         }
 
         response = requests.post(
             HF_API_URL,
             json=payload,
-            timeout=20
+            timeout=10   # ⏱️ prevent hanging
         )
 
         if response.status_code == 200:
             result = response.json()
+            return result.get("data", ["No result"])[0]
 
-            # 🔥 SAFE PARSING
-            if "data" in result and len(result["data"]) > 0:
-                return result["data"][0]
-            else:
-                return "⚠️ Invalid AI response format"
-
-        return f"⚠️ HuggingFace Error: {response.status_code}"
+        else:
+            return f"AI not available (status {response.status_code})"
 
     except requests.exceptions.Timeout:
-        return "⚠️ AI is waking up, try again"
+        return "AI is slow, try again"
 
     except Exception as e:
-        print("HF ERROR:", str(e))
-        return "⚠️ AI service failed"
+        return "AI temporarily unavailable"
